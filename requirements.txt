@@ -1,0 +1,6 @@
+fastapi==0.78.0
+fastapi-users[sqlalchemy]==10.0.6
+uvicorn[standard]==0.17.6
+aiosqlite==0.17.0
+sqlalchemy==1.4.36
+alembic==1.7.7

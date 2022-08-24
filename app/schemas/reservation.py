@@ -1,11 +1,22 @@
-from datetime import datetime
+import datetime as dt
 
-from pydantic import BaseModel, validator, root_validator
+from pydantic import BaseModel, Extra, Field, validator, root_validator
+
+FROM_TIME = (
+    dt.datetime.now() + dt.timedelta(minutes=10)
+).isoformat(timespec='minutes')
+TO_TIME = (
+    dt.datetime.now() + dt.timedelta(hours=1)
+).isoformat(timespec='minutes')
 
 
 class ReservationBase(BaseModel):
-    from_reserve: datetime
-    to_reserve: datetime
+    from_reserve: dt.datetime = Field(..., example=FROM_TIME)
+    to_reserve: dt.datetime = Field(..., example=TO_TIME)
+
+    class Config:
+        extra = Extra.forbid
+
 
 
 class ReservationUpdate(ReservationBase):
