@@ -1,4 +1,5 @@
 import datetime as dt
+from typing import Optional
 
 from pydantic import BaseModel, Extra, Field, validator, root_validator
 
@@ -23,7 +24,7 @@ class ReservationUpdate(ReservationBase):
 
     @validator('from_reserve')
     def check_from_reserve_later_than_now(cls, value):
-        if value <= datetime.now():
+        if value <= dt.datetime.now():
             raise ValueError(
                 'Время начала бронирования '
                 'не может быть меньше текущего времени'
@@ -53,6 +54,7 @@ class ReservationCreate(ReservationUpdate):
 class ReservationDB(ReservationBase):
     id: int
     meetingroom_id: int
+    user_id: Optional[int]
 
     class Config:
         orm_mode = True
